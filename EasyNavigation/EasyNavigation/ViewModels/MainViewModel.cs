@@ -1,4 +1,4 @@
-﻿using EasyNavigation.ViewModels.Base;
+﻿using EasyNavigation.ViewModels;
 
 namespace EasyNavigation.ViewModels;
 
