@@ -1,4 +1,6 @@
-﻿namespace EasyNavigation.ViewModels;
+﻿using EasyNavigation.ViewModels.Base;
+
+namespace EasyNavigation.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
