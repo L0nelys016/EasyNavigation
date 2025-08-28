@@ -2,11 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace EasyNavigation.Views.Pages;
+namespace EasyNavigation.Views;
 
-public partial class page2 : UserControl
+public partial class viewsa : UserControl
 {
-    public page2()
+    public viewsa()
     {
         InitializeComponent();
     }
