@@ -27,8 +27,11 @@ namespace Navigation.Abstractions
         public void ResetAndNavigate<TViewModel, TParams>(TParams _params)
             where TViewModel : BaseViewModel;
 
-        public void NavigateOverlay<TViewModel>()
-            where TViewModel : BaseViewModel;
+        public void NavigateOverlay<TViewModel>(
+             Action<BaseViewModel?>? overlayAction = null,
+             Action? onClose = null
+         )
+             where TViewModel : BaseViewModel;
 
         public void NavigateOverlay<TViewModel, TParam>(
            TParam _params,

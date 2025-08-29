@@ -31,11 +31,25 @@ namespace Navigation.NavigationService
 
         public bool HistoryIsNotEmpty => _historyViewModel.Count > 0;
 
-        private Action<BaseViewModel>? OverlayAction { get; set; }
+        private Action<BaseViewModel?>? OverlayAction { get; set; }
 
         public void CloseOverlay()
         {
-            throw new NotImplementedException();
+            if (!HistoryIsNotEmpty)
+            {
+                _logger.LogError("Попытка закрытия оверлей окна при пустой истории");
+                return;
+            }
+
+            BaseViewModel viewModel = _historyViewModel.Pop();
+
+            viewModel?.Dispose();
+
+            OverlayAction?.Invoke(null);
+
+            OverlayAction = null;
+
+            _logger.LogInformation("Закрытие оверлей окна");
         }
 
         public void DestroyAndNavigate<TViewModel>()
@@ -88,6 +102,25 @@ namespace Navigation.NavigationService
             _navigationStore.CurrentViewModel = viewModel;
             _logger.LogInformation($"Возврат к {viewModel.GetType().Name}");
         }
+        public void NavigateOverlay<TViewModel>(
+            Action<BaseViewModel?>? overlayAction = null,
+            Action? onClose = null
+        )
+            where TViewModel : BaseViewModel
+        {
+            BaseViewModel? viewModel = _serviceProvider.GetRequiredService<TViewModel>();
+            overlayAction?.Invoke( viewModel );
+
+            OverlayAction = vm =>
+            {
+                overlayAction?.Invoke(null);
+                onClose?.Invoke();
+            };
+
+            _historyViewModel.Push( viewModel );
+
+            _logger.LogInformation($"Оверлей навигация на {viewModel.GetType().Name}");
+        }
 
         public void NavigateOverlay<TViewModel, TParam>(
             TParam _params,
@@ -96,7 +129,23 @@ namespace Navigation.NavigationService
         )
             where TViewModel : BaseViewModel
         {
-            throw new NotImplementedException();
+            BaseViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
+
+            viewModel.Initialize(_params);
+
+            overlayAction?.Invoke(viewModel);
+
+            OverlayAction = vm =>
+            {
+                overlayAction?.Invoke(null);
+                onClose?.Invoke();
+            };
+
+            _historyViewModel.Push(viewModel);
+
+            _logger.LogInformation(
+                $"Оверлей навигация на {viewModel.GetType().Name} с передачей параметров: {_params}"
+            );
         }
 
         public void ResetAndNavigate<TViewModel>()
