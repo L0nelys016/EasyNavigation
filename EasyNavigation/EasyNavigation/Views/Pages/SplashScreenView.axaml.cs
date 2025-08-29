@@ -8,9 +8,9 @@ using Avalonia.Styling;
 
 namespace EasyNavigation.Views.Pages
 {
-    public partial class SplashScreen : UserControl
+    public partial class SplashScreenView : UserControl
     {
-        public SplashScreen()
+        public SplashScreenView()
         {
             InitializeComponent();
 

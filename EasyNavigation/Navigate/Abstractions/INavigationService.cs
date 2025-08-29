@@ -10,35 +10,35 @@ namespace Navigation.Abstractions
     public interface INavigationService
     {
         void Navigate<TViewModel>()
-            where TViewModel : BaseViewModel;
+            where TViewModel : TemplateViewModel;
 
         void Navigate<TViewModel, TParams>(TParams _params)
-            where TViewModel : BaseViewModel;
+            where TViewModel : TemplateViewModel;
 
         public void DestroyAndNavigate<TViewModel>()
-           where TViewModel : BaseViewModel;
+           where TViewModel : TemplateViewModel;
 
         public void DestroyAndNavigate<TViewModel, TParams>(TParams _params)
-            where TViewModel : BaseViewModel;
+            where TViewModel : TemplateViewModel;
 
         public void ResetAndNavigate<TViewModel>()
-            where TViewModel : BaseViewModel;
+            where TViewModel : TemplateViewModel;
 
         public void ResetAndNavigate<TViewModel, TParams>(TParams _params)
-            where TViewModel : BaseViewModel;
+            where TViewModel : TemplateViewModel;
 
         public void NavigateOverlay<TViewModel>(
-             Action<BaseViewModel?>? overlayAction = null,
+             Action<TemplateViewModel?>? overlayAction = null,
              Action? onClose = null
          )
-             where TViewModel : BaseViewModel;
+             where TViewModel : TemplateViewModel;
 
         public void NavigateOverlay<TViewModel, TParam>(
            TParam _params,
-           Action<BaseViewModel?>? overlayAction = null,
+           Action<TemplateViewModel?>? overlayAction = null,
            Action? onClose = null
        )
-           where TViewModel : BaseViewModel;
+           where TViewModel : TemplateViewModel;
             
         public void CloseOverlay();
 

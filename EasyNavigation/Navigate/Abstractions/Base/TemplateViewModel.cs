@@ -3,7 +3,7 @@ using Navigation.Exceptions;
 
 namespace Navigation.Abstractions.Base
 {
-    public abstract class BaseViewModel : ObservableObject, IDisposable
+    public abstract class TemplateViewModel : ObservableObject, IDisposable
     {
         public void Initialize<T>(T _params)
         {

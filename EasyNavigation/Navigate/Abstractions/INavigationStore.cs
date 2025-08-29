@@ -10,6 +10,6 @@ namespace Navigation.Abstractions
 {
     public interface INavigationStore : INotifyPropertyChanged
     {
-        BaseViewModel? CurrentViewModel { get; set; }
+        TemplateViewModel? CurrentViewModel { get; set; }
     }
 }

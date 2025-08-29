@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EasyNavigation.ViewModels.Base;
+using Navigation.Abstractions;
 
 namespace EasyNavigation.ViewModels
 {
-    internal class SplashScreenViewModel
+    public class SplashScreenViewModel : ViewModelBase
     {
+        private readonly INavigationService _navigationService;
+
+        public SplashScreenViewModel(INavigationService navigationService)
+        {
+            _navigationService = navigationService;
+        }
+
+        public void NanigationToMain() => _navigationService.DestroyAndNavigate<MainViewModel>();
     }
 }

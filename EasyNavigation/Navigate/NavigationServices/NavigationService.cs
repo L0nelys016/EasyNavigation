@@ -1,12 +1,11 @@
-﻿using System.Data;
-using System.Net.Security;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Navigation.Abstractions;
 using Navigation.Abstractions.Base;
+using Navigation.Options;
 
-namespace Navigation.NavigationService
+namespace Navigation.NavigationServices
 {
     public class NavigationService : INavigationService
     {
@@ -14,24 +13,25 @@ namespace Navigation.NavigationService
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger _logger;
 
-        private Stack<BaseViewModel> _historyViewModel = new();
+        private Stack<TemplateViewModel> _historyViewModel = new();
         private readonly int _maxHistoryViewModel;
 
         public NavigationService(
             INavigationStore navStore,
             IServiceProvider serProvider,
-            ILogger logger,
-            IOptions<BaseViewModel> options
+            ILogger<NavigationService> logger,
+            IOptions<NavigateHistory> options
         )
         {
             _navigationStore = navStore;
             _serviceProvider = serProvider;
+            _maxHistoryViewModel = options.Value.MaxNavigateHistory;
             _logger = logger;
         }
 
         public bool HistoryIsNotEmpty => _historyViewModel.Count > 0;
 
-        private Action<BaseViewModel?>? OverlayAction { get; set; }
+        private Action<TemplateViewModel?>? OverlayAction { get; set; }
 
         public void CloseOverlay()
         {
@@ -41,7 +41,7 @@ namespace Navigation.NavigationService
                 return;
             }
 
-            BaseViewModel viewModel = _historyViewModel.Pop();
+            TemplateViewModel viewModel = _historyViewModel.Pop();
 
             viewModel?.Dispose();
 
@@ -53,17 +53,17 @@ namespace Navigation.NavigationService
         }
 
         public void DestroyAndNavigate<TViewModel>()
-            where TViewModel : BaseViewModel
+            where TViewModel : TemplateViewModel
         {
-            BaseViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
+            TemplateViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
             DisposeAndSetViewModel(viewModel);
             _logger.LogInformation($"Переход к {viewModel.GetType().Name} без сохранения истории");
         }
 
         public void DestroyAndNavigate<TViewModel, TParams>(TParams _params)
-            where TViewModel : BaseViewModel
+            where TViewModel : TemplateViewModel
         {
-            BaseViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
+            TemplateViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
             DisposeAndSetViewModel(viewModel);
             viewModel.Initialize(_params);
             _logger.LogInformation(
@@ -72,17 +72,17 @@ namespace Navigation.NavigationService
         }
 
         public void Navigate<TViewModel>()
-            where TViewModel : BaseViewModel
+            where TViewModel : TemplateViewModel
         {
-            BaseViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
+            TemplateViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
             AddToHistoryAndSetViewModel(viewModel);
             _logger.LogInformation($"Переход к {viewModel.GetType().Name}");
         }
 
         public void Navigate<TViewModel, TParams>(TParams _params)
-            where TViewModel : BaseViewModel
+            where TViewModel : TemplateViewModel
         {
-            BaseViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
+            TemplateViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
             viewModel.Initialize(_params);
             AddToHistoryAndSetViewModel(viewModel);
             _logger.LogInformation(
@@ -98,18 +98,19 @@ namespace Navigation.NavigationService
                 return;
             }
             _navigationStore.CurrentViewModel?.Dispose();
-            BaseViewModel viewModel = _historyViewModel.Pop();
+            TemplateViewModel viewModel = _historyViewModel.Pop();
             _navigationStore.CurrentViewModel = viewModel;
             _logger.LogInformation($"Возврат к {viewModel.GetType().Name}");
         }
+
         public void NavigateOverlay<TViewModel>(
-            Action<BaseViewModel?>? overlayAction = null,
+            Action<TemplateViewModel?>? overlayAction = null,
             Action? onClose = null
         )
-            where TViewModel : BaseViewModel
+            where TViewModel : TemplateViewModel
         {
-            BaseViewModel? viewModel = _serviceProvider.GetRequiredService<TViewModel>();
-            overlayAction?.Invoke( viewModel );
+            TemplateViewModel? viewModel = _serviceProvider.GetRequiredService<TViewModel>();
+            overlayAction?.Invoke(viewModel);
 
             OverlayAction = vm =>
             {
@@ -117,19 +118,19 @@ namespace Navigation.NavigationService
                 onClose?.Invoke();
             };
 
-            _historyViewModel.Push( viewModel );
+            _historyViewModel.Push(viewModel);
 
             _logger.LogInformation($"Оверлей навигация на {viewModel.GetType().Name}");
         }
 
         public void NavigateOverlay<TViewModel, TParam>(
             TParam _params,
-            Action<BaseViewModel?>? overlayAction = null,
+            Action<TemplateViewModel?>? overlayAction = null,
             Action? onClose = null
         )
-            where TViewModel : BaseViewModel
+            where TViewModel : TemplateViewModel
         {
-            BaseViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
+            TemplateViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
 
             viewModel.Initialize(_params);
 
@@ -149,7 +150,7 @@ namespace Navigation.NavigationService
         }
 
         public void ResetAndNavigate<TViewModel>()
-            where TViewModel : BaseViewModel
+            where TViewModel : TemplateViewModel
         {
             DestroyAndNavigate<TViewModel>();
             _historyViewModel.Clear();
@@ -157,14 +158,14 @@ namespace Navigation.NavigationService
         }
 
         public void ResetAndNavigate<TViewModel, TParams>(TParams _params)
-            where TViewModel : BaseViewModel
+            where TViewModel : TemplateViewModel
         {
             DestroyAndNavigate<TViewModel, TParams>(_params);
             _historyViewModel.Clear();
             _logger.LogInformation($"История была очищена");
         }
 
-        private void AddToHistoryAndSetViewModel(BaseViewModel viewModel)
+        private void AddToHistoryAndSetViewModel(TemplateViewModel viewModel)
         {
             if (_navigationStore.CurrentViewModel != null)
             {
@@ -180,7 +181,7 @@ namespace Navigation.NavigationService
             _navigationStore.CurrentViewModel = viewModel;
         }
 
-        private void DisposeAndSetViewModel(BaseViewModel viewModel)
+        private void DisposeAndSetViewModel(TemplateViewModel viewModel)
         {
             if (_navigationStore.CurrentViewModel != null)
             {
@@ -192,7 +193,7 @@ namespace Navigation.NavigationService
         private string RemodeLastVm()
         {
             _historyViewModel = new(_historyViewModel);
-            BaseViewModel viewModel = _historyViewModel.Pop();
+            TemplateViewModel viewModel = _historyViewModel.Pop();
             viewModel.Dispose();
             _historyViewModel = new(_historyViewModel);
             return viewModel.GetType().Name;

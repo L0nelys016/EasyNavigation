@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Navigation.Abstractions;
 using Navigation.Abstractions.Base;
 
-namespace Navigation.NavigationStore
+namespace Navigation.NavigationStores
 {
     public class NavigationStore : INavigationStore
     {
-        private BaseViewModel? _currentViewModel;
+        private TemplateViewModel? _currentViewModel;
 
-        public BaseViewModel? CurrentViewModel
+        public TemplateViewModel? CurrentViewModel
         {
             get => _currentViewModel;
             set
