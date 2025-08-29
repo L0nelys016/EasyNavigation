@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
+	<AvaloniaResource Include="Assets\Image\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,5 +17,23 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.2" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+    <PackageReference Include="Splat" Version="14.4.1" />
+    <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Navigate\Navigation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Pages\SplashScreenView.axaml.cs">
+      <DependentUpon>SplashScreenView.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
