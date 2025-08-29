@@ -1,9 +1,11 @@
-﻿using EasyNavigation.ViewModels.Base;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using EasyNavigation.ViewModels.Base;
 using Navigation.Abstractions;
 
 namespace EasyNavigation.ViewModels
 {
-    public class SplashScreenViewModel : ViewModelBase
+    public partial class SplashScreenViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
 
@@ -12,6 +14,9 @@ namespace EasyNavigation.ViewModels
             _navigationService = navigationService;
         }
 
-        public void NanigationToMain() => _navigationService.DestroyAndNavigate<MainViewModel>();
+
+        [RelayCommand]
+        private void NanigationToMain() =>
+            _navigationService.DestroyAndNavigate<MainViewModel>();
     }
 }

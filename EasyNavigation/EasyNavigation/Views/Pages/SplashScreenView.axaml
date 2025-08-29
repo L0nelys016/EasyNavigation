@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="EasyNavigation.Views.Pages.SplashScreenView">
@@ -9,5 +10,7 @@
                HorizontalAlignment="Center"
                VerticalAlignment="Center"
                RenderTransformOrigin="0.5,0.5"/>
+		<Button
+			Command="{Binding NanigationToMainCommand}"/>
 	</Grid>
 </UserControl>
