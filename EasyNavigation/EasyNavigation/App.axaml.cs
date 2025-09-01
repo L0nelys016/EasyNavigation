@@ -19,7 +19,7 @@ public partial class App : Application
 
     public IServiceProvider ServiceProvider
     {
-        get => _serviceProvider ?? throw new InvalidOperationException("Services not initialized");
+        get => _serviceProvider ?? throw new InvalidOperationException("Сервис не инициализирован");
         set => _serviceProvider = value;
     }
 
@@ -67,8 +67,8 @@ public partial class App : Application
     private void ConfigureViewModelServices(IServiceCollection services)
     {
         services.AddSingleton<MainWindowViewModel>();
-        services.AddSingleton<MainViewModel>();
         services.AddTransient<SplashScreenViewModel>();
+        services.AddTransient<AuthorizationViewModel>();
     }
 
     private void ConfigureNavigationServices(IServiceCollection services)

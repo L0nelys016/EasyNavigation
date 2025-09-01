@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using EasyNavigation.ViewModels.Base;
 using Navigation.Abstractions;
 
 namespace EasyNavigation.ViewModels
@@ -17,6 +16,6 @@ namespace EasyNavigation.ViewModels
 
         [RelayCommand]
         private void NavigationToMain() =>
-            _navigationService.DestroyAndNavigate<MainViewModel>();
+            _navigationService.DestroyAndNavigate<AuthorizationViewModel>();
     }
 }

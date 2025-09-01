@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="using:EasyNavigation.ViewModels"
-		xmlns:vmBase="using:EasyNavigation.ViewModels.Base"
+        xmlns:vmBase="using:EasyNavigation.ViewModels.Base"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:EasyNavigation.Views.Pages;assembly=EasyNavigation"
@@ -16,9 +16,9 @@
 		<DataTemplate DataType="vm:SplashScreenViewModel">
 			<views:SplashScreenView/>
 		</DataTemplate>
-		<DataTemplate DataType="vmBase:MainViewModel">
-			<views:MainView/>
-		</DataTemplate>
+        <DataTemplate DataType="vm:AuthorizationViewModel">
+            <views:AuthorizationView/>
+        </DataTemplate>
 	</Window.DataTemplates>
 	
 	<ContentControl Content="{Binding currentViewModel}"/>

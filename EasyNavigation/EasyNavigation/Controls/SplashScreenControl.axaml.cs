@@ -117,7 +117,7 @@ public partial class SplashScreenControl : UserControl
 
         await fadeInAnimation.RunAsync(logo, CancellationToken.None);
 
-        await Task.Delay(3000);
+        await Task.Delay(1500);
 
         if (SplashScreenCommand?.CanExecute(null) == true)
             SplashScreenCommand.Execute(null);

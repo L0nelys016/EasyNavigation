@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="EasyNavigation.Controls.AuthControls">
+
+    <Grid RowDefinitions="Auto,*">
+        <TabControl Grid.Row="1" Margin="20">
+
+            <TabItem Header="Вход">
+                <StackPanel Spacing="10" Margin="10">
+
+                    <TextBox Watermark="Логин"
+                             Text="{Binding Login, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+
+                    <TextBox Watermark="Пароль"
+                             Text="{Binding Password, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                             PasswordChar="*"/>
+
+                    <Button Content="Войти"
+                            Command="{Binding LoginCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            Width="60"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"/>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Регистрация">
+                <StackPanel Spacing="10" Margin="10">
+
+                    <TextBox Watermark="Логин"
+                             Text="{Binding RegisterLogin, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+
+                    <TextBox Watermark="Email"
+                             Text="{Binding RegisterEmail, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+
+                    <TextBox Watermark="Пароль"
+                             Text="{Binding RegisterPassword, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                             PasswordChar="*"/>
+
+                    <TextBox Watermark="Повторите пароль"
+                             Text="{Binding RegisterConfirmPassword, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                             PasswordChar="*"/>
+
+                    <Button Content="Зарегистрироваться"
+                            Command="{Binding RegisterCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            Width="170"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"/>
+                </StackPanel>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</UserControl>
