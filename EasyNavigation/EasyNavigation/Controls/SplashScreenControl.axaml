@@ -1,0 +1,16 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="EasyNavigation.Controls.SplashScreenControl">
+
+    <Image x:Name="AnimatedImage"
+           Width="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}"
+           Height="{Binding Height, RelativeSource={RelativeSource AncestorType=UserControl}}"
+           Source="{Binding ImageSource, RelativeSource={RelativeSource AncestorType=UserControl}}"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           RenderTransformOrigin="0.5,0.5"/>
+
+</UserControl>

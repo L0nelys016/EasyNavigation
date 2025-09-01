@@ -16,7 +16,7 @@ namespace EasyNavigation.ViewModels
 
 
         [RelayCommand]
-        private void NanigationToMain() =>
+        private void NavigationToMain() =>
             _navigationService.DestroyAndNavigate<MainViewModel>();
     }
 }
