@@ -1,0 +1,12 @@
+# Enforce UTF-8 with BOM for XAML to keep Cyrillic readable in source and designers
+root = true
+
+[*.{axaml,xaml}]
+charset = utf-8-bom
+end_of_line = crlf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+
+
+
