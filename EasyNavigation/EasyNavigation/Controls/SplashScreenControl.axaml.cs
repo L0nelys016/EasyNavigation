@@ -98,7 +98,7 @@ public partial class SplashScreenControl : UserControl
 
         Animation fadeInAnimation = new Animation
         {
-            Duration = TimeSpan.FromSeconds(1.5),
+            Duration = TimeSpan.FromSeconds(1.0),
             FillMode = FillMode.Forward,
             Children =
             {
@@ -117,7 +117,7 @@ public partial class SplashScreenControl : UserControl
 
         await fadeInAnimation.RunAsync(logo, CancellationToken.None);
 
-        await Task.Delay(1500);
+        await Task.Delay(1000);
 
         if (SplashScreenCommand?.CanExecute(null) == true)
             SplashScreenCommand.Execute(null);
