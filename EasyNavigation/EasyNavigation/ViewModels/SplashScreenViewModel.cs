@@ -15,7 +15,7 @@ namespace EasyNavigation.ViewModels
 
 
         [RelayCommand]
-        private void NavigationToMain() =>
+        private void NavigationToAuth() =>
             _navigationService.DestroyAndNavigate<AuthorizationViewModel>();
     }
 }

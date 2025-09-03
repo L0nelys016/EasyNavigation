@@ -69,6 +69,7 @@ public partial class App : Application
         services.AddSingleton<MainWindowViewModel>();
         services.AddTransient<SplashScreenViewModel>();
         services.AddTransient<AuthorizationViewModel>();
+        services.AddTransient<MainViewModel>();
     }
 
     private void ConfigureNavigationServices(IServiceCollection services)

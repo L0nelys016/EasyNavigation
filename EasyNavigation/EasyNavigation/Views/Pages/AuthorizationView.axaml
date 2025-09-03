@@ -12,5 +12,6 @@
         MaxWidth="500"
         MaxHeight="500"
         HorizontalAlignment="Center"
-        VerticalAlignment="Center"/>
+        VerticalAlignment="Center"
+        LoginCommand="{Binding NavigationToMainCommand}"/>
 </UserControl>

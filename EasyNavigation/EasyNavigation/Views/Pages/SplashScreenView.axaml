@@ -5,7 +5,7 @@
              xmlns:control="using:EasyNavigation.Controls">
 
 	<control:SplashScreenControl
-        SplashScreenCommand="{Binding NavigationToMainCommand}"
+        SplashScreenCommand="{Binding NavigationToAuthCommand}"
         Source="avares://EasyNavigation/Assets/Image/SmartMan.jpg"
 		Width="200"
 		Height="200"/>

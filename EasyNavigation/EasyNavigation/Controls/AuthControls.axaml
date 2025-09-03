@@ -119,7 +119,7 @@
                              PasswordChar="*"/>
 
                     <Button Content="Зарегистрироваться"
-                            Command="{Binding RegisterCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            Command="{Binding RegistrationCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                             Width="170"
                             HorizontalAlignment="Center"
                             HorizontalContentAlignment="Center"/>

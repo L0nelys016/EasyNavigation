@@ -19,6 +19,9 @@
         <DataTemplate DataType="vm:AuthorizationViewModel">
             <views:AuthorizationView/>
         </DataTemplate>
+        <DataTemplate DataType="vm:MainViewModel">
+            <views:MainView/>
+        </DataTemplate>
 	</Window.DataTemplates>
 	
 	<ContentControl Content="{Binding currentViewModel}"/>
